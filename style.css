@@ -1,0 +1,147 @@
+/* Design Mentor: Mobile-First Reset and Base Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Design Mentor: Dark Elegance Palette */
+    --color-matte-black: #121212;
+    --color-charcoal: #1e1e1e;
+    --color-deep-gray: #2c2c2c;
+    --color-bronze-accent: #b8860b; /* A deep, readable bronze */
+    --color-warm-highlight: #e0d9c9; /* Beige/light bronze for contrast */
+    --color-text-body: #c7c7c7;
+    --color-text-header: #fff;
+    --font-serif: 'Roboto Slab', serif; /* Bold headers (geometric/serif) */
+    --font-sans: 'Roboto', sans-serif; /* Sleek sans-serif body text */
+}
+
+/* Base Body Styling: Dark backgrounds with warm highlights */
+body.dark-elegance {
+    font-family: var(--font-sans);
+    background-color: var(--color-matte-black);
+    color: var(--color-text-body);
+    line-height: 1.6;
+    padding: 0;
+}
+
+/* Layout: Using Flexbox for clean vertical flow */
+.document-container {
+    max-width: 900px;
+    width: 90%;
+    margin: 4rem auto; /* Adjusted for mobile view first */
+    padding: 20px;
+    background-color: var(--color-charcoal); /* Matte panels */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
+
+/* Typography: Bold Headers */
+h1, h2, h3 {
+    font-family: var(--font-serif);
+    color: var(--color-text-header);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid var(--color-deep-gray);
+    padding-bottom: 0.3em;
+}
+
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.5rem; }
+
+.subtitle {
+    color: var(--color-bronze-accent);
+    font-style: italic;
+    margin-bottom: 2em;
+}
+
+/* Header and Navigation */
+header#top-header {
+    background-color: var(--color-deep-gray);
+    padding: 1rem 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Interaction: Hover accents in bronze */
+nav a {
+    color: var(--color-warm-highlight);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    padding: 5px 10px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+nav a:hover, nav a:focus {
+    color: var(--color-charcoal);
+    background-color: var(--color-bronze-accent);
+    border-radius: 2px;
+}
+
+/* Collapsible Module Design */
+.collapsible-module {
+    background-color: var(--color-deep-gray);
+    border-left: 3px solid var(--color-bronze-accent);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+}
+
+/* Content Sections */
+section h3 {
+    cursor: pointer; /* Suggests interaction for collapsible sections */
+    display: block;
+    margin-top: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    color: var(--color-bronze-accent);
+}
+
+section p {
+    margin-bottom: 1em;
+}
+
+/* Citation/Link Styling */
+a, a:visited {
+    color: var(--color-bronze-accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--color-bronze-accent);
+}
+
+a:hover {
+    color: var(--color-warm-highlight);
+    border-bottom: 1px solid var(--color-warm-highlight);
+}
+
+/* Semantic Dt/Dd for Glossary (Accessibility) */
+dl dt {
+    font-weight: bold;
+    color: var(--color-warm-highlight);
+    margin-top: 1em;
+}
+
+dl dd {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+/* Media Query for Desktop (Responsive Layout) */
+@media (min-width: 768px) {
+    .document-container {
+        padding: 40px 60px;
+        /* Using CSS Grid conceptually for major sections if needed, 
+           but here we prioritize a clean single-column reading experience. */
+    }
+}
