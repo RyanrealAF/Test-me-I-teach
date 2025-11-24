@@ -1,36 +1,49 @@
 /**
  * Expert Web Developer: Simple, framework-less JavaScript for interactivity.
  * Safety Checker: No external tracking, analytics, or proprietary code.
+ * * NOTE: This script automatically handles TOC generation and collapse logic for 
+ * all new H2 and H3 elements inside the document-container.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- 1. Dynamic Table of Contents (TOC) Generation ---
-    const content = document.getElementById('paper-content');
+    const content = document.getElementById('main-content');
     const tocNav = document.getElementById('toc-nav');
     
-    // Find all H3 elements within the paper content (our main sections)
-    const sections = content.querySelectorAll('section > h3');
+    // Find all H2 and H3 elements within the main content for the TOC
+    const sections = content.querySelectorAll('h2, h3');
     
     // Create the list for the TOC
     const tocList = document.createElement('ul');
     
     sections.forEach(header => {
-        // Ensure the header text is safe for an ID
-        const sectionId = header.closest('section').id;
+        // Skip headers inside the TOC section itself
+        if (header.closest('#table-of-contents')) return; 
 
-        // Check for valid ID to link
-        if (sectionId) {
+        // Find the nearest ancestor section with an ID
+        let sectionContainer = header.closest('section[id]');
+        
+        // If a section container is not found, use the header's own ID
+        let sectionId = sectionContainer ? sectionContainer.id : header.id;
+        
+        // If the header has an inner link (like in the Annihilation Analysis), use its text
+        const linkText = header.querySelector('a') ? header.querySelector('a').textContent : header.textContent;
+        
+        if (sectionId && linkText) {
             const listItem = document.createElement('li');
             const anchor = document.createElement('a');
-            
-            // Get the text from the <a> tag inside the H3
-            const linkText = header.querySelector('a') ? header.querySelector('a').textContent : header.textContent;
             
             anchor.href = `#${sectionId}`;
             anchor.textContent = linkText;
             
-            // Add smooth scrolling (Interaction)
+            // Add indentation for sub-sections (H3)
+            if (header.tagName === 'H3') {
+                 listItem.style.marginLeft = '1.5em';
+                 listItem.style.fontSize = '0.9em';
+            }
+
+            // Add smooth scrolling
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 document.getElementById(sectionId).scrollIntoView({
@@ -40,43 +53,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             listItem.appendChild(anchor);
             tocList.appendChild(listItem);
-            
-            // --- 2. Implement Collapsible Doctrine Modules ---
-            const sectionContent = header.nextElementSibling; // Get the element immediately following the h3
-            
-            // Wrap all content under the H3 in a collapsible wrapper if it exists
-            if (sectionContent) {
-                const wrapper = document.createElement('div');
-                wrapper.classList.add('collapsible-content');
-                
-                // Move all siblings of the H3 into the wrapper until the next H3 or end of section
-                let currentElement = header.nextElementSibling;
-                while (currentElement && currentElement.tagName !== 'H3') {
-                    const nextElement = currentElement.nextElementSibling;
-                    wrapper.appendChild(currentElement);
-                    currentElement = nextElement;
-                }
-                
-                // Insert the wrapper back into the section
-                header.parentNode.insertBefore(wrapper, header.nextElementSibling);
-
-                // Set initial state (Content Architect: Start collapsed)
-                wrapper.style.display = 'none';
-
-                // Add click listener to the header itself
-                header.addEventListener('click', () => {
-                    // Smooth transition effect (simple fade/toggle)
-                    if (wrapper.style.display === 'none') {
-                        wrapper.style.display = 'block';
-                        // Could add a CSS class for a fancier transition if desired
-                    } else {
-                        wrapper.style.display = 'none';
-                    }
-                });
-            }
         }
     });
     
-    // Append the final TOC list to the navigation area
+    // Append the final TOC list
     tocNav.appendChild(tocList);
-});
+
+    // --- 2. Implement Collapsible Doctrine Modules ---
+    const doctrineModules = document.querySelectorAll('.collapsible-module');
+
+    doctrineModules.forEach(module => {
+        // Find the wrapper containing all collapsible content
+        const collapsibleContent = module.querySelector('.collapsible-content');
+        
+        // Find the main trigger (usually the H2 of the module)
+        const trigger = module.querySelector('h2'); 
+
+        if (trigger && collapsibleContent) {
+            // Set initial state (start collapsed)
+            collapsibleContent.style.display = 'none';
+
+            // Add click listener to the header
+            trigger.addEventListener('click', () => {
+                // Toggle visibility
+                if (collapsibleContent.style.display === 'none') {
+                    collapsibleContent.style.display = 'block';
+                } else {
+                    collapsibleContent.style.display = 'none';
+                }
+            });
+        }
+    });
+});});
