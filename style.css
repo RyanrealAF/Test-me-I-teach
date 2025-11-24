@@ -27,29 +27,28 @@ body.dark-elegance {
     padding: 0;
 }
 
-/* Layout: Using Flexbox for clean vertical flow */
+/* Layout */
 .document-container {
     max-width: 900px;
     width: 90%;
-    margin: 4rem auto; /* Adjusted for mobile view first */
+    margin: 4rem auto;
     padding: 20px;
     background-color: var(--color-charcoal); /* Matte panels */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     border-radius: 4px;
 }
 
-/* Typography: Bold Headers */
-h1, h2, h3 {
+/* Typography */
+h1, h2, h3, h4, h5 {
     font-family: var(--font-serif);
     color: var(--color-text-header);
     margin-top: 1.5em;
     margin-bottom: 0.5em;
-    border-bottom: 1px solid var(--color-deep-gray);
-    padding-bottom: 0.3em;
 }
-
-h2 { font-size: 2.2rem; }
+h2 { border-bottom: 1px solid var(--color-deep-gray); padding-bottom: 0.3em; font-size: 2.2rem; }
 h3 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; color: var(--color-bronze-accent); }
+h5 { font-size: 1.1rem; text-transform: uppercase; margin-bottom: 0.2em; }
 
 .subtitle {
     color: var(--color-bronze-accent);
@@ -66,16 +65,6 @@ header#top-header {
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Interaction: Hover accents in bronze */
 nav a {
     color: var(--color-warm-highlight);
     text-decoration: none;
@@ -83,7 +72,6 @@ nav a {
     padding: 5px 10px;
     transition: color 0.3s, background-color 0.3s;
 }
-
 nav a:hover, nav a:focus {
     color: var(--color-charcoal);
     background-color: var(--color-bronze-accent);
@@ -98,50 +86,97 @@ nav a:hover, nav a:focus {
     margin-bottom: 2rem;
     border-radius: 4px;
 }
-
-/* Content Sections */
-section h3 {
-    cursor: pointer; /* Suggests interaction for collapsible sections */
-    display: block;
-    margin-top: 0;
+/* Style headers inside collapsible modules to show clickability */
+.collapsible-module h2, .collapsible-module h3 {
+    cursor: pointer; 
     padding-bottom: 0;
     border-bottom: none;
-    color: var(--color-bronze-accent);
 }
 
-section p {
-    margin-bottom: 1em;
-}
-
-/* Citation/Link Styling */
+/* Base Link Styling */
 a, a:visited {
     color: var(--color-bronze-accent);
     text-decoration: none;
     border-bottom: 1px dotted var(--color-bronze-accent);
 }
 
-a:hover {
-    color: var(--color-warm-highlight);
-    border-bottom: 1px solid var(--color-warm-highlight);
+/* --- Table Styling (Analysis and Brand Bible) --- */
+.mechanism-table-wrapper, .palette-table-wrapper {
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-deep-gray);
+    font-size: 0.95rem;
+}
+table thead th {
+    background-color: var(--color-bronze-accent);
+    color: var(--color-charcoal);
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: left;
+    font-family: var(--font-serif);
+}
+table tbody td {
+    padding: 12px 15px;
+    vertical-align: top;
+    border-right: 1px solid var(--color-charcoal); /* Structure without polish */
+}
+table tbody tr:nth-child(even) {
+    background-color: var(--color-deep-gray);
+}
+table tbody tr:hover {
+    background-color: rgba(var(--color-bronze-accent), 0.1);
 }
 
-/* Semantic Dt/Dd for Glossary (Accessibility) */
-dl dt {
+/* --- Brand Bible Specific Styles --- */
+/* Blockquote for doctrinal notes/manifesto quotes */
+blockquote.doctrine-note {
+    border-left: 4px solid var(--color-warm-highlight);
+    padding: 10px 20px;
+    margin: 1.5em 0;
+    background-color: rgba(var(--color-bronze-accent), 0.05);
+    font-style: italic;
+}
+
+/* Definition List for Fusion/Typography Rules */
+.fusion-list, .typography-rules dl {
+    margin: 1em 0;
+}
+.fusion-list dt, .typography-rules dt {
+    color: var(--color-bronze-accent);
     font-weight: bold;
-    color: var(--color-warm-highlight);
     margin-top: 1em;
 }
-
-dl dd {
+.fusion-list dd, .typography-rules dd {
     margin-left: 1.5em;
     margin-bottom: 1em;
 }
 
-/* Media Query for Desktop (Responsive Layout) */
+/* General list styling */
+ul.value-list {
+    list-style: none;
+    padding-left: 0;
+}
+ul.value-list li {
+    padding-left: 1.5em;
+    position: relative;
+    margin-bottom: 0.5em;
+}
+ul.value-list li::before {
+    content: "•";
+    color: var(--color-bronze-accent); /* Bronze accent for bullets */
+    font-size: 1.2em;
+    line-height: 1;
+    position: absolute;
+    left: 0;
+}
+
+/* Media Query for Desktop */
 @media (min-width: 768px) {
     .document-container {
         padding: 40px 60px;
-        /* Using CSS Grid conceptually for major sections if needed, 
-           but here we prioritize a clean single-column reading experience. */
     }
 }
